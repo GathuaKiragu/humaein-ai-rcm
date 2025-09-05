@@ -1,6 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const mongoose = require('mongoose');
+const claimsRouter = require('./routes/claims');
 require('dotenv').config();
 
 const app = express();
@@ -10,7 +11,7 @@ const port = process.env.PORT || 5000;
 app.use(cors());
 app.use(express.json()); // for parsing application/json
 app.use(express.static('public')); // serve uploaded files
-
+app.use('/api/claims', claimsRouter);
 // MongoDB Connection (we'll use a free MongoDB Atlas cluster)
 mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/humaein-rcm')
   .then(() => console.log('MongoDB connected successfully'))
