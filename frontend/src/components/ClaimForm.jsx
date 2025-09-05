@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 
-const ClaimForm = () => {
+const ClaimForm = ({ onClaimCreated }) => {
   const [isProcessing, setIsProcessing] = useState(false);
   const [message, setMessage] = useState('');
   const [claimData, setClaimData] = useState(null);
@@ -27,6 +27,12 @@ const ClaimForm = () => {
 
       setMessage('Claim processed successfully!');
       setClaimData(response.data.claim);
+      
+      // Notify parent component about the new claim
+      if (onClaimCreated) {
+        onClaimCreated(response.data.claim);
+      }
+      
       console.log('Claim created:', response.data.claim);
     } catch (error) {
       console.error('Error uploading files:', error);
@@ -92,6 +98,13 @@ const ClaimForm = () => {
           <p><strong>Policy #:</strong> {claimData.policyNumber}</p>
           <p><strong>CPT Codes:</strong> {claimData.proposedCptCodes?.join(', ')}</p>
           <p><strong>Denial Risk:</strong> {(claimData.estimatedDenialRisk * 100).toFixed(1)}%</p>
+          
+          <button
+            onClick={() => window.location.reload()}
+            className="mt-4 bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700"
+          >
+            Process Another Claim
+          </button>
         </div>
       )}
     </div>

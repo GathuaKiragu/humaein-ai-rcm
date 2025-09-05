@@ -81,7 +81,7 @@ run_service "frontend" "$YELLOW" "npm run dev"
 
 echo ""
 echo -e "${GREEN}All services started!${NC}"
-echo -e "${GREEN}Frontend:    http://localhost:3000${NC}"
+echo -e "${GREEN}Frontend:    http://localhost:5173${NC}"
 echo -e "${GREEN}Backend API: http://localhost:5000${NC}"
 echo -e "${GREEN}AI Service:  http://localhost:8000${NC}"
 echo ""
